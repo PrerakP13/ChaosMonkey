@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, ForeignKey
 from sqlalchemy.orm import relationship
-from app.db.database import Base
+from backend.app.db.database import Base
 
 
 class Dependency(Base):
