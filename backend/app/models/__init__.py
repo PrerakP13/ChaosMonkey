@@ -1,6 +1,6 @@
 from .architecture import Architecture
-from .service import Service
 from .dependency import Dependency
+from .service import Service
 from .simulation import Simulation
 from .simulation_result import SimulationResult
 

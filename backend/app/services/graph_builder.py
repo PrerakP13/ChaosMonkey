@@ -1,6 +1,7 @@
 from sqlalchemy.orm import Session
-from backend.app.models.service import Service
-from backend.app.models.dependency import Dependency
+
+from app.models.dependency import Dependency
+from app.models.service import Service
 
 
 def build_graph(db: Session, architecture_id: int):

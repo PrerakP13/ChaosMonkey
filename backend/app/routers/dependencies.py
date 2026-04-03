@@ -1,9 +1,8 @@
+from app.db.database import get_db
+from app.models.dependency import Dependency
+from app.schemas.dependency import DependencyCreate, DependencyRead
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-
-from backend.app.db.database import get_db
-from backend.app.schemas.dependency import DependencyCreate, DependencyRead
-from backend.app.models.dependency import Dependency
 
 router = APIRouter(prefix="/dependencies", tags=["Dependencies"])
 

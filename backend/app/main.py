@@ -1,6 +1,6 @@
+from app.db.database import Base, engine
+from app.routers import architectures, dependencies, simulations, services
 from fastapi import FastAPI
-from backend.app.db.database import Base, engine
-from backend.app.routers import architectures, dependencies, simulations, services
 
 # Create tables (temporary — later you will use Alembic)
 Base.metadata.create_all(bind=engine)
@@ -17,4 +17,4 @@ app.include_router(simulations.router)
 
 @app.get("/")
 def root():
-    return {"message": "Architecture Failure Simulator API running"}
+    return {"message": "Chaos Monkey is awake!!!"}

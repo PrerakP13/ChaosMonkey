@@ -1,6 +1,8 @@
 from datetime import datetime
-from pydantic import BaseModel
 from typing import List
+
+from pydantic import BaseModel
+
 from .simulation_result import SimulationResultRead
 
 

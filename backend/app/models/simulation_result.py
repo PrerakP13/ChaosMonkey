@@ -1,6 +1,6 @@
+from app.db.database import Base
 from sqlalchemy import Column, Integer, ForeignKey, String
 from sqlalchemy.orm import relationship
-from backend.app.db.database import Base
 
 
 class SimulationResult(Base):
@@ -22,7 +22,7 @@ class SimulationResult(Base):
         index=True,
     )
 
-    status = Column(String, nullable=False)  # HEALTHY, FAILED, DEGRADED
+    status = Column(String(225), nullable=False)  # HEALTHY, FAILED, DEGRADED
 
     simulation = relationship("Simulation", back_populates="results")
     service = relationship("Service", back_populates="simulation_results")

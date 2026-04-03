@@ -1,6 +1,6 @@
+from app.db.database import Base
 from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.orm import relationship
-from backend.app.db.database import Base
 
 
 class Service(Base):
@@ -13,8 +13,8 @@ class Service(Base):
         nullable=False,
         index=True,
     )
-    name = Column(String, nullable=False)
-    type = Column(String, nullable=False)  # API, DATABASE, CACHE, QUEUE, LOAD_BALANCER
+    name = Column(String(225), nullable=False)
+    service_type = Column(String(225), nullable=False)  # API, DATABASE, CACHE, QUEUE, LOAD_BALANCER
     replica_group_id = Column(Integer, nullable=True)
 
     architecture = relationship("Architecture", back_populates="services")

@@ -1,7 +1,8 @@
 from datetime import datetime
+
+from app.db.database import Base
 from sqlalchemy import Column, Integer, ForeignKey, DateTime
 from sqlalchemy.orm import relationship
-from backend.app.db.database import Base
 
 
 class Simulation(Base):

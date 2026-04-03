@@ -1,7 +1,8 @@
 from sqlalchemy.orm import Session
-from backend.app.models.simulation import Simulation
-from backend.app.models.simulation_result import SimulationResult
-from backend.app.services.graph_builder import build_graph
+
+from app.models.simulation import Simulation
+from app.models.simulation_result import SimulationResult
+from app.services.graph_builder import build_graph
 
 
 def run_simulation(db: Session, architecture_id: int, failed_service_id: int):

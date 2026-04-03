@@ -1,10 +1,9 @@
+from app.db.database import get_db
+from app.models.simulation import Simulation
+from app.schemas.simulation import SimulationCreate, SimulationRead
+from app.services.simulation_service import run_simulation
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-
-from backend.app.db.database import get_db
-from backend.app.schemas.simulation import SimulationCreate, SimulationRead
-from backend.app.services.simulation_service import run_simulation
-from backend.app.models.simulation import Simulation
 
 router = APIRouter(prefix="/simulations", tags=["Simulations"])
 

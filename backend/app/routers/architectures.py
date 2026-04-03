@@ -1,9 +1,8 @@
+from app.db.database import get_db
+from app.models.architecture import Architecture
+from app.schemas.architecture import ArchitectureCreate, ArchitectureRead
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-
-from backend.app.db.database import get_db
-from backend.app.schemas.architecture import ArchitectureCreate, ArchitectureRead
-from backend.app.models.architecture import Architecture
 
 router = APIRouter(prefix="/architectures", tags=["Architectures"])
 

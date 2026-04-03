@@ -1,9 +1,8 @@
+from app.db.database import get_db
+from app.models.service import Service
+from app.schemas.service import ServiceCreate, ServiceRead
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-
-from backend.app.db.database import get_db
-from backend.app.schemas.service import ServiceCreate, ServiceRead
-from backend.app.models.service import Service
 
 router = APIRouter(prefix="/services", tags=["Services"])
 
