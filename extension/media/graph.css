@@ -1,0 +1,21 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+#toolbar {
+  padding: 6px;
+  background: #1e1e1e;
+  color: #fff;
+}
+
+#toolbar button {
+  margin-right: 8px;
+}
+
+#cy {
+  width: 100vw;
+  height: calc(100vh - 40px);
+  display: block;
+}

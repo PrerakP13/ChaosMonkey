@@ -1,0 +1,53 @@
+{
+  "name": "chaos-vscode-plugin",
+  "displayName": "Chaos Architecture Explorer",
+  "description": "Visualize dependencies, simulate failures, and explore chaos chains in your Python project.",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "activationEvents": [
+    "onCommand:chaos.scanProject",
+    "onCommand:chaos.openGraph",
+    "onView:chaosSidebar"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "chaos.scanProject",
+        "title": "Chaos: Scan Project"
+      },
+      {
+        "command": "chaos.openGraph",
+        "title": "Chaos: Open Dependency Graph"
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "chaosContainer",
+          "title": "Chaos",
+          "icon": "resources/icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "chaosContainer": [
+        {
+          "id": "chaosSidebar",
+          "name": "Services"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run build",
+    "build": "tsc -p ./",
+    "watch": "tsc -watch -p ./"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.85.0",
+    "typescript": "^5.4.0"
+  }
+}
