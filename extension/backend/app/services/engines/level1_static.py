@@ -12,10 +12,20 @@ def run_level1(path: str):
     dependencies = []
 
     root = os.path.abspath(path)
+    
+    # Skip directories and files
+    skip_dirs = {".venv", "venv", "__pycache__", ".env", "tests", "test", ".git", "node_modules"}
 
-    for r, _, files in os.walk(root):
+    for r, dirs, files in os.walk(root):
+        # Filter out directories to skip
+        dirs[:] = [d for d in dirs if d not in skip_dirs and not d.startswith(".env") and not d.startswith(".")]
+        
         for f in files:
             if not f.endswith(".py"):
+                continue
+            
+            # Skip test files and other files that shouldn't be scanned
+            if f.startswith("test_") or f.endswith("_test.py") or f in ("setup.py", "conftest.py"):
                 continue
 
             full = os.path.join(r, f)

@@ -1,17 +1,14 @@
 import * as vscode from "vscode";
 
-class ChaosNode extends vscode.TreeItem {
-  constructor(label: string) {
-    super(label, vscode.TreeItemCollapsibleState.None);
-    this.contextValue = "chaosService";
-  }
-}
-
-export class ChaosSidebarProvider implements vscode.TreeDataProvider<ChaosNode> {
-  private _onDidChangeTreeData: vscode.EventEmitter<ChaosNode | undefined | void> =
-    new vscode.EventEmitter<ChaosNode | undefined | void>();
-  readonly onDidChangeTreeData: vscode.Event<ChaosNode | undefined | void> =
-    this._onDidChangeTreeData.event;
+export class ChaosSidebarProvider
+  implements vscode.TreeDataProvider<ServiceItem>
+{
+  private _onDidChangeTreeData: vscode.EventEmitter<
+    ServiceItem | undefined | null | void
+  > = new vscode.EventEmitter<ServiceItem | undefined | null | void>();
+  readonly onDidChangeTreeData: vscode.Event<
+    ServiceItem | undefined | null | void
+  > = this._onDidChangeTreeData.event;
 
   private services: string[] = [];
 
@@ -20,11 +17,21 @@ export class ChaosSidebarProvider implements vscode.TreeDataProvider<ChaosNode> 
     this._onDidChangeTreeData.fire();
   }
 
-  getTreeItem(element: ChaosNode): vscode.TreeItem {
+  getTreeItem(element: ServiceItem): vscode.TreeItem {
     return element;
   }
 
-  getChildren(): Thenable<ChaosNode[]> {
-    return Promise.resolve(this.services.map((s) => new ChaosNode(s)));
+  getChildren(): Thenable<ServiceItem[]> {
+    return Promise.resolve(
+      this.services.map((svc) => new ServiceItem(svc))
+    );
+  }
+}
+
+class ServiceItem extends vscode.TreeItem {
+  constructor(label: string) {
+    super(label, vscode.TreeItemCollapsibleState.None);
+    this.tooltip = `Service: ${label}`;
+    this.description = "";
   }
 }

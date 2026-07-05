@@ -1,15 +1,18 @@
 {
-  "name": "chaos-vscode-plugin",
-  "displayName": "Chaos Architecture Explorer",
-  "description": "Visualize dependencies, simulate failures, and explore chaos chains in your Python project.",
-  "version": "0.0.1",
+  "name": "chaos-monkey",
+  "displayName": "Chaos Monkey for VS Code",
+  "description": "Scan, analyze, and simulate failures in your Python project using Chaos Engineering.",
+  "version": "1.0.1",
+  "publisher": "prerak",
   "engines": {
-    "vscode": "^1.85.0"
+    "vscode": "^1.120.0"
   },
+  "categories": [
+    "Other"
+  ],
   "activationEvents": [
     "onCommand:chaos.scanProject",
-    "onCommand:chaos.openGraph",
-    "onView:chaosSidebar"
+    "onCommand:chaos.openGraph"
   ],
   "main": "./out/extension.js",
   "contributes": {
@@ -20,34 +23,42 @@
       },
       {
         "command": "chaos.openGraph",
-        "title": "Chaos: Open Dependency Graph"
+        "title": "Chaos: Open Graph"
       }
     ],
     "viewsContainers": {
       "activitybar": [
         {
-          "id": "chaosContainer",
+          "id": "chaosSidebar",
           "title": "Chaos",
-          "icon": "resources/icon.svg"
+          "icon": "icon.png"
         }
       ]
     },
     "views": {
-      "chaosContainer": [
+      "chaosSidebar": [
         {
           "id": "chaosSidebar",
-          "name": "Services"
+          "name": "Chaos Services"
         }
       ]
     }
   },
   "scripts": {
-    "vscode:prepublish": "npm run build",
-    "build": "tsc -p ./",
-    "watch": "tsc -watch -p ./"
+    "compile": "tsc -p ./ && npm run copy-media",
+    "copy-media": "xcopy \"media\" \"out\\media\" /E /I /Y",
+    "watch": "tsc -watch -p ./",
+    "package": "vsce package",
+    "publish": "vsce publish"
   },
   "devDependencies": {
-    "@types/vscode": "^1.85.0",
-    "typescript": "^5.4.0"
+    "@types/node": "^18.0.0",
+    "@types/vscode": "^1.120.0",
+    "typescript": "^5.0.0",
+    "vsce": "^2.15.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/PrerakP13/ChaosMonkey"
   }
 }

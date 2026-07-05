@@ -1,13 +1,14 @@
 import os
 from typing import Dict, List, Tuple, Any
 
-from backend.app.services.orchestrator.dependency_scanner import (
+from app.services.orchestrator.dependency_scanner import (
     extract_dependencies,
     normalize_dependency_graph,
     discover_python_files
 )
 
-from backend.app.services.scanner import run_all_scanners
+from app.services.scanner import run_all_scanners
+
 
 def scan(path: str) -> Tuple[List[str], List[Tuple[str, str]], Dict[str, Any]]:
     """
@@ -33,24 +34,31 @@ def scan(path: str) -> Tuple[List[str], List[Tuple[str, str]], Dict[str, Any]]:
     return services, dependencies, vuln_results
 
 
-
-
-def enrich_services_with_vulns(services: List[str], vuln_results: Dict[str, List[Dict[str, Any]]]):
+def enrich_services_with_vulns(
+    services: List[str],
+    vuln_results: Dict[str, Any]
+) -> List[Dict[str, Any]]:
     """
-    Attach vulnerability metadata to each service/file.
-    Output format matches what graph_builder expects.
+    Turn raw service strings into node objects with attached vulnerability metadata.
+    Currently only Level 2 produces per-service vulnerabilities.
     """
 
-    service_map = {svc: {"file": svc, "vulns": []} for svc in services}
+    service_map: Dict[str, Dict[str, Any]] = {
+        svc: {"id": svc, "file": svc, "vulns": []}
+        for svc in services
+    }
 
-    for vuln_type, findings in vuln_results.items():
+    # Handle Level 2: {"vulnerabilities": [...], "no_imports": [...], "safe_services": [...]}
+    level2 = vuln_results.get("level2")
+    if isinstance(level2, dict):
+        findings = level2.get("vulnerabilities", [])
         for f in findings:
-            file = f.get("file")
+            if not isinstance(f, dict):
+                continue
+            file = f.get("service") or f.get("file")
             if file in service_map:
-                service_map[file]["vulns"].append(vuln_type.upper())
+                service_map[file]["vulns"].append(
+                    f.get("issue", "LEVEL2_FINDING")
+                )
 
-    # graph_builder expects a list of strings or objects depending on your version
-    # If your graph_builder expects plain strings, return services unchanged
-    # If it expects metadata, return enriched objects
-    # For now, return plain strings (your current graph_builder uses strings)
-    return services
+    return list(service_map.values())

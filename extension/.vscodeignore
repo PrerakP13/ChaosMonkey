@@ -1,0 +1,10 @@
+**/.git
+**/.DS_Store
+**/node_modules
+**/venv
+**/__pycache__
+**/*.pyc
+**/*.pyo
+**/*.pyd
+backend/venv
+backend/__pycache__
